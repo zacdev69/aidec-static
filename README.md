@@ -1,0 +1,1 @@
+# aidec-static
