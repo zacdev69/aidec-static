@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AIDEC™ — Decision System Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont;
+      background: #020617;
+      color: #e5e7eb;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 24px;
+    }
+
+    h1 {
+      font-size: 44px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      max-width: 760px;
+      font-size: 18px;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    .section {
+      margin-top: 120px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .card {
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 32px;
+      background: rgba(2,6,23,0.6);
+    }
+
+    .note {
+      font-size: 14px;
+      opacity: 0.6;
+      margin-top: 12px;
+    }
+
+    canvas {
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <h1>AIDEC™ — Decision System Demo</h1>
+    <p>
+      This page demonstrates how AIDEC™ visualizes decisions.
+      The graphs below are not analytics dashboards.
+      They are **decision-clarity tools**.
+    </p>
+
+    <!-- SECTION 1 -->
+    <div class="section">
+      <h2>1. Decision Funnel</h2>
+      <p>
+        Every input is filtered through structured stages.
+        Most decisions should never reach execution.
+      </p>
+
+      <div class="card">
+        <canvas id="funnelChart"></canvas>
+        <div class="note">
+          Purpose: Show decision reduction, not conversion.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section">
+      <h2>2. Risk vs Impact Matrix</h2>
+      <p>
+        AIDEC™ forces trade-off visibility.
+        High-impact decisions with unmanaged risk are blocked.
+      </p>
+
+      <div class="card">
+        <canvas id="riskChart"></canvas>
+        <div class="note">
+          Purpose: Expose hidden risk, not predict outcome.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section">
+      <h2>3. Cost vs Delay Trade-Off</h2>
+      <p>
+        Decisions are evaluated against financial cost and execution delay.
+        Cheap but slow decisions are flagged.
+      </p>
+
+      <div class="card">
+        <canvas id="costChart"></canvas>
+        <div class="note">
+          Purpose: Make consequences explicit before execution.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Funnel Chart
+    new Chart(document.getElementById("funnelChart"), {
+      type: "bar",
+      data: {
+        labels: ["Initial Ideas", "Validated", "Decision-Ready", "Executed"],
+        datasets: [{
+          data: [100, 45, 18, 6],
+          backgroundColor: "#38bdf8"
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { display: false },
+          x: { ticks: { color: "#e5e7eb" } }
+        }
+      }
+    });
+
+    // Risk vs Impact
+    new Chart(document.getElementById("riskChart"), {
+      type: "scatter",
+      data: {
+        datasets: [{
+          label: "Decision Options",
+          data: [
+            { x: 2, y: 8 },
+            { x: 6, y: 6 },
+            { x: 8, y: 3 }
+          ],
+          backgroundColor: "#fb7185"
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            title: { display: true, text: "Risk Level", color: "#94a3b8" },
+            ticks: { color: "#e5e7eb" }
+          },
+          y: {
+            title: { display: true, text: "Impact Level", color: "#94a3b8" },
+            ticks: { color: "#e5e7eb" }
+          }
+        }
+      }
+    });
+
+    // Cost vs Delay
+    new Chart(document.getElementById("costChart"), {
+      type: "line",
+      data: {
+        labels: ["Option A", "Option B", "Option C"],
+        datasets: [{
+          label: "Cost vs Delay Index",
+          data: [4, 7, 9],
+          borderColor: "#22d3ee",
+          tension: 0.3
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: "#e5e7eb" } }
+        },
+        scales: {
+          y: { ticks: { color: "#e5e7eb" } },
+          x: { ticks: { color: "#e5e7eb" } }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
